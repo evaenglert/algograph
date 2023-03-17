@@ -5,17 +5,23 @@ export default function SortingBar() {
 
   const sort_container_height = 400;
 
-  const [barArray, setBarArray] = React.useState([]);
+  const new_array = [];
+  for (var i = 0; i < 150; i++) {
+    var new_number = randomIntFromInterval(1, 500);
+    new_array.push([new_number, 'red'])
+  }
+
+  const [barArray, setBarArray] = React.useState([new_array]);
 
   const bars = barArray.map((item, index) => {
-    return (<div className="bar" style={{ height: item[0] * sort_container_height / 500, width: 2, backgroundColor: item[1] }} key={index}></div>)
+    return (<div className="bar" style={{ height: item[0] * sort_container_height / 500, width: 10, backgroundColor: item[1] }} key={index}></div>)
   })
 
 
   function generateNewArray() {
     setBarArray(() => {
       const new_array = [];
-      for (var i = 0; i < 100; i++) {
+      for (var i = 0; i < 150; i++) {
         var new_number = randomIntFromInterval(1, 500);
         new_array.push([new_number, 'red'])
       }
@@ -112,12 +118,14 @@ export default function SortingBar() {
 
 
   return (
-    <div>
-      <button onClick={generateNewArray}>Generate New Array</button>
-      <button onClick={runBubbleSort}>Bubble Sort</button>
-      <button onClick={runQuickSort}>Quick Sort</button>
+    <div class='main-content'>
       <div className="sort-container" style={{ width: 800 }}>
         {bars}
+      </div>
+      <div className='settings'>
+        <button onClick={generateNewArray}>Generate New Array</button>
+        <button onClick={runBubbleSort}>Bubble Sort</button>
+        <button onClick={runQuickSort}>Quick Sort</button>
       </div>
 
     </div>
