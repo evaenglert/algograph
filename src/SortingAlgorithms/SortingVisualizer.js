@@ -1,5 +1,5 @@
 import React from "react"
-import bubbleSort, {quickSort} from "./sortingAlgorithms";
+import bubbleSort, { quickSort, mergeSort } from "./sortingAlgorithms";
 
 export default function SortingBar() {
 
@@ -87,7 +87,6 @@ export default function SortingBar() {
             const [idx1_prev, idx2_prev, _] = animationArray[i - 1];
             newBarArray[idx1_prev][1] = 'red';
             newBarArray[idx2_prev][1] = 'red';
-            console.log(newBarArray);
           }
 
           newBarArray[idx1][1] = 'blue';
@@ -116,9 +115,24 @@ export default function SortingBar() {
 
   }
 
+  function runMergeSort() {
+    const copy_of_array = barArray.map(item => item[0]);
+    const sorted_array = mergeSort(copy_of_array);
+
+    setBarArray((prevBarArray) => {
+      const newBarArray = prevBarArray.map(item => item);
+      for (let i=0; i<newBarArray.length; i++) {
+        newBarArray[i][0] = sorted_array[i]
+      }
+
+      return newBarArray
+    });
+
+  }
+
 
   return (
-    <div class='main-content'>
+    <div className='main-content'>
       <div className="sort-container" style={{ width: 800 }}>
         {bars}
       </div>
@@ -126,11 +140,14 @@ export default function SortingBar() {
         <button onClick={generateNewArray}>Generate New Array</button>
         <button onClick={runBubbleSort}>Bubble Sort</button>
         <button onClick={runQuickSort}>Quick Sort</button>
+        <button onClick={runMergeSort}>Merge Sort</button>
       </div>
 
     </div>
   )
 }
+
+
 
 function randomIntFromInterval(min, max) { // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min)

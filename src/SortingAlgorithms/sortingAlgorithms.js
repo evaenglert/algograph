@@ -27,36 +27,36 @@ export default function bubbleSort(arr) {
 
 }
 
-export function quickSort(animationArray, items, left, right) {
+export function quickSort(animationArray, arr, left, right) {
   var index;
 
-  if (items.length > 1) {
-    [index, animationArray] = partition(animationArray, items, left, right); //index returned from partition
+  if (arr.length > 1) {
+    [index, animationArray] = partition(animationArray, arr, left, right); //index returned from partition
     if (left < index - 1) { //more elements on the left side of the pivot
-      quickSort(animationArray, items, left, index - 1);
+      quickSort(animationArray, arr, left, index - 1);
     }
     if (index < right) { //more elements on the right side of the pivot
-      quickSort(animationArray, items, index, right);
+      quickSort(animationArray, arr, index, right);
     }
   }
-  return [items, animationArray]
+  return [arr, animationArray]
 };
 
-function partition(animationArray, items, left, right) {
-  var pivot = items[Math.floor((right + left) / 2)], //middle element
+function partition(animationArray, arr, left, right) {
+  var pivot = arr[Math.floor((right + left) / 2)], //middle element
     i = left, //left pointer
     j = right; //right pointer
   while (i <= j) {
-    while (items[i] < pivot) {
+    while (arr[i] < pivot) {
       i++;
     }
-    while (items[j] > pivot) {
+    while (arr[j] > pivot) {
       j--;
     }
     if (i <= j) {
-      var temp = items[i]
-      items[i] = items[j]
-      items[j] = temp
+      var temp = arr[i]
+      arr[i] = arr[j]
+      arr[j] = temp
 
       animationArray.push([i, j, 'swap']);
 
@@ -69,6 +69,29 @@ function partition(animationArray, items, left, right) {
 }
 
 
-export function mergeSort() {
+function merge(left, right) {
+  let arr = []
 
+  while (left.length && right.length) {
+
+    if (left[0] < right[0]) {
+      arr.push(left.shift())
+    } else {
+      arr.push(right.shift())
+    }
+  }
+
+  return [...arr, ...left, ...right]
+}
+
+export function mergeSort(arr) {
+  const half = arr.length / 2
+
+  // Base case or terminating case
+  if (arr.length < 2) {
+    return arr
+  }
+
+  const left = arr.splice(0, half)
+  return merge(mergeSort(left), mergeSort(arr))
 }
