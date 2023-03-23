@@ -11,7 +11,7 @@ export default function SortingBar() {
     new_array.push([new_number, 'red'])
   }
 
-  const [barArray, setBarArray] = React.useState([new_array]);
+  const [barArray, setBarArray] = React.useState(new_array);
 
   const bars = barArray.map((item, index) => {
     return (<div className="bar" style={{ height: item[0] * sort_container_height / 500, width: 10, backgroundColor: item[1] }} key={index}></div>)
@@ -117,7 +117,7 @@ export default function SortingBar() {
 
   function runMergeSort() {
     const copy_of_array = barArray.map(item => item[0]);
-    const sorted_array = mergeSort(copy_of_array);
+    const sorted_array = mergeSort([], copy_of_array);
 
     setBarArray((prevBarArray) => {
       const newBarArray = prevBarArray.map(item => item);
