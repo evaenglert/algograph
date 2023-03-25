@@ -33,6 +33,10 @@ export default function SortingBar() {
   function runBubbleSort() {
     const copy_of_array = barArray.map(item => item[0]);
     const animationArray = bubbleSort(copy_of_array)[1];
+    const buttons = document.getElementsByTagName('button');
+    console.log(buttons);
+
+    buttons.forEach(button => {button.disabled = true});
 
     for (let i=0; i < animationArray.length; i++) {
 
@@ -137,10 +141,10 @@ export default function SortingBar() {
         {bars}
       </div>
       <div className='settings'>
-        <button onClick={generateNewArray}>Generate New Array</button>
-        <button onClick={runBubbleSort}>Bubble Sort</button>
-        <button onClick={runQuickSort}>Quick Sort</button>
-        <button onClick={runMergeSort}>Merge Sort</button>
+        <button onClick={generateNewArray} id="new-array">Generate New Array</button>
+        <button onClick={runBubbleSort} id="bubble-sort">Bubble Sort</button>
+        <button onClick={runQuickSort} id="quick-sort">Quick Sort</button>
+        <button onClick={runMergeSort} id="merge-sort">Merge Sort</button>
       </div>
 
     </div>
