@@ -33,9 +33,8 @@ export default function SortingBar() {
   function runBubbleSort() {
     const copy_of_array = barArray.map(item => item[0]);
     const animationArray = bubbleSort(copy_of_array)[1];
-    const buttons = document.getElementsByTagName('button');
-    console.log(buttons);
 
+    const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {button.disabled = true});
 
     for (let i=0; i < animationArray.length; i++) {
@@ -70,6 +69,7 @@ export default function SortingBar() {
         for (let i = 0; i < newBarArray.length; i++) {
           newBarArray[i][1] = 'green';
         }
+        buttons.forEach(button => { button.disabled = false });
         return newBarArray
       })
     }, 1 * (animationArray.length) + 1);
@@ -78,10 +78,11 @@ export default function SortingBar() {
   function runQuickSort() {
     const copy_of_array = barArray.map(item => item[0]);
     const animationArray = quickSort([], copy_of_array, 0, copy_of_array.length-1)[1];
-    console.log(animationArray);
+
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => { button.disabled = true });
 
     for (let i = 0; i < animationArray.length; i++) {
-      console.log(i);
 
       const [idx1, idx2, is_swap] = animationArray[i];
       setTimeout(() => {
@@ -113,6 +114,7 @@ export default function SortingBar() {
       for (let i=0; i<newBarArray.length; i++) {
         newBarArray[i][1] = 'green';
       }
+      buttons.forEach(button => { button.disabled = false });
       return newBarArray
       })
     }, 10 * (animationArray.length) +1);
@@ -121,16 +123,31 @@ export default function SortingBar() {
 
   function runMergeSort() {
     const copy_of_array = barArray.map(item => item[0]);
-    const sorted_array = mergeSort([], copy_of_array);
+    const [sorted_array, animationArray] = mergeSort([], 0, copy_of_array);
 
-    setBarArray((prevBarArray) => {
-      const newBarArray = prevBarArray.map(item => item);
-      for (let i=0; i<newBarArray.length; i++) {
-        newBarArray[i][0] = sorted_array[i]
-      }
+    // setBarArray((prevBarArray) => {
+    //   const newBarArray = prevBarArray.map(item => item);
+    //   for (let i=0; i<newBarArray.length; i++) {
+    //     newBarArray[i][0] = sorted_array[i]
+    //   }
 
-      return newBarArray
-    });
+    //   return newBarArray
+    // });
+
+
+    for (let i = 0; i < animationArray.length; i++) {
+
+      const [idx1, value] = animationArray[i];
+      setTimeout(() => {
+        setBarArray((prevBarArray) => {
+          const newBarArray = prevBarArray.map(item => item);
+          console.log([idx1, value]);
+          newBarArray[idx1][0] = value;
+
+          return newBarArray})
+
+      }, 10 * i)
+    }
 
   }
 

@@ -69,30 +69,42 @@ function partition(animationArray, arr, left, right) {
 }
 
 
-function merge(animationArray, left, right) {
+function merge(animationArray, index_left, left, right) {
   let arr = []
   //  TODO: Write animationArray
+  // console.log(animationArray);
+  // console.log(index_left);
+  // console.log(left);
+  // console.log(right);
 
   while (left.length && right.length) {
 
     if (left[0] < right[0]) {
       arr.push(left.shift())
+      animationArray.push([index_left + arr.length-1, arr[arr.length-1]])
     } else {
       arr.push(right.shift())
+      animationArray.push([index_left + arr.length-1, arr[arr.length -1]])
     }
   }
 
-  return [...arr, ...left, ...right]
+  return [[...arr, ...left, ...right], animationArray]
 }
 
-export function mergeSort(animationArray, arr) {
+export function mergeSort(animationArray, index_left, arr) {
   const half = arr.length / 2
 
   // Base case or terminating case
   if (arr.length < 2) {
-    return arr
+    return [arr, animationArray]
   }
 
-  const left = arr.splice(0, half)
-  return merge(animationArray, mergeSort(animationArray, left), mergeSort(animationArray, arr))
+  const left = arr.splice(0, half);
+
+
+  const [left_sorted, left_animation_array] = mergeSort(animationArray, index_left, left);
+  const [right_sorted, right_animation_array] = mergeSort(animationArray, index_left + arr.length -1, arr)
+
+
+  return merge(animationArray, index_left, left_sorted, right_sorted)
 }
