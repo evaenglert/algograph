@@ -125,15 +125,8 @@ export default function SortingBar() {
     const copy_of_array = barArray.map(item => item[0]);
     const [sorted_array, animationArray] = mergeSort([], 0, copy_of_array);
 
-    // setBarArray((prevBarArray) => {
-    //   const newBarArray = prevBarArray.map(item => item);
-    //   for (let i=0; i<newBarArray.length; i++) {
-    //     newBarArray[i][0] = sorted_array[i]
-    //   }
-
-    //   return newBarArray
-    // });
-
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => { button.disabled = true });
 
     for (let i = 0; i < animationArray.length; i++) {
 
@@ -148,6 +141,17 @@ export default function SortingBar() {
 
       }, 10 * i)
     }
+
+    setTimeout(() => {
+      setBarArray((prevBarArray) => {
+        const newBarArray = prevBarArray.map(item => item);
+        for (let i = 0; i < newBarArray.length; i++) {
+          newBarArray[i][1] = 'green';
+        }
+        buttons.forEach(button => { button.disabled = false });
+        return newBarArray
+      })
+    }, 10 * (animationArray.length) + 1);
 
   }
 

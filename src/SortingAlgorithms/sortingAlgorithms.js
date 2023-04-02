@@ -71,11 +71,6 @@ function partition(animationArray, arr, left, right) {
 
 function merge(animationArray, index_left, left, right) {
   let arr = []
-  //  TODO: Write animationArray
-  // console.log(animationArray);
-  // console.log(index_left);
-  // console.log(left);
-  // console.log(right);
 
   while (left.length && right.length) {
 
@@ -88,7 +83,17 @@ function merge(animationArray, index_left, left, right) {
     }
   }
 
-  return [[...arr, ...left, ...right], animationArray]
+  while (left.length) {
+    arr.push(left.shift())
+    animationArray.push([index_left + arr.length - 1, arr[arr.length-1]])
+  }
+
+  while (right.length) {
+    arr.push(right.shift())
+    animationArray.push([index_left + arr.length - 1, arr[arr.length-1]])
+  }
+
+  return [[...arr], animationArray]
 }
 
 export function mergeSort(animationArray, index_left, arr) {
