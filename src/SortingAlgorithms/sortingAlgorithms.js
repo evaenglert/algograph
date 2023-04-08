@@ -70,27 +70,34 @@ function partition(animationArray, arr, left, right) {
 
 
 function merge(animationArray, index_left, left, right) {
-  let arr = []
+  let arr = [];
+  let left_arr_idx = 0;
+  let right_arr_idx = left.length-1;
+
 
   while (left.length && right.length) {
 
     if (left[0] < right[0]) {
       arr.push(left.shift())
-      animationArray.push([index_left + arr.length-1, arr[arr.length-1]])
+      animationArray.push([index_left + arr.length - 1, arr[arr.length - 1], index_left + left_arr_idx, index_left + right_arr_idx])
+      left_arr_idx += 1;
     } else {
       arr.push(right.shift())
-      animationArray.push([index_left + arr.length-1, arr[arr.length -1]])
+      animationArray.push([index_left + arr.length - 1, arr[arr.length - 1], index_left + left_arr_idx, index_left + right_arr_idx])
+      right_arr_idx += 1;
     }
   }
 
   while (left.length) {
     arr.push(left.shift())
-    animationArray.push([index_left + arr.length - 1, arr[arr.length-1]])
+    animationArray.push([index_left + arr.length - 1, arr[arr.length - 1], index_left + left_arr_idx, index_left + right_arr_idx])
+    left_arr_idx += 1;
   }
 
   while (right.length) {
     arr.push(right.shift())
-    animationArray.push([index_left + arr.length - 1, arr[arr.length-1]])
+    animationArray.push([index_left + arr.length - 1, arr[arr.length - 1], index_left + left_arr_idx, index_left + right_arr_idx])
+    right_arr_idx += 1;
   }
 
   return [[...arr], animationArray]

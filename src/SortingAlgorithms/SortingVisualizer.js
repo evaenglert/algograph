@@ -130,12 +130,20 @@ export default function SortingBar() {
 
     for (let i = 0; i < animationArray.length; i++) {
 
-      const [idx1, value] = animationArray[i];
+      const [idx1, value, left_idx, right_idx] = animationArray[i];
       setTimeout(() => {
         setBarArray((prevBarArray) => {
           const newBarArray = prevBarArray.map(item => item);
-          console.log([idx1, value]);
           newBarArray[idx1][0] = value;
+
+          if (i > 0) {
+            const [_, __, left_idx_prev, right_idx_prev] = animationArray[i-1];
+            newBarArray[left_idx_prev][1] = 'red';
+            newBarArray[right_idx_prev][1] = 'red';
+          }
+
+          newBarArray[left_idx][1] = 'blue';
+          newBarArray[right_idx][1] = 'blue';
 
           return newBarArray})
 
