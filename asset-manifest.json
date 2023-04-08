@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/algograph/static/css/main.49e4f354.css",
-    "main.js": "/algograph/static/js/main.a10268fd.js",
+    "main.js": "/algograph/static/js/main.f4951e2f.js",
     "static/js/787.9ba2c472.chunk.js": "/algograph/static/js/787.9ba2c472.chunk.js",
     "index.html": "/algograph/index.html",
     "main.49e4f354.css.map": "/algograph/static/css/main.49e4f354.css.map",
-    "main.a10268fd.js.map": "/algograph/static/js/main.a10268fd.js.map",
+    "main.f4951e2f.js.map": "/algograph/static/js/main.f4951e2f.js.map",
     "787.9ba2c472.chunk.js.map": "/algograph/static/js/787.9ba2c472.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.49e4f354.css",
-    "static/js/main.a10268fd.js"
+    "static/js/main.f4951e2f.js"
   ]
 }
